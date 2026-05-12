@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodMart Бенто-Введение</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --bg-main: #ffffff;
+            --card-bg: #f8f9fa; 
+            --card-hover: #ffffff;
+            
+            --primary: #7c3aed; 
+            --primary-light: #f5f3ff; 
+            
+            --text-dark: #111827;
+            --text-main: #4b5563;
+            --text-muted: #9ca3af;
+            
+            --border-color: #e5e7eb;
+            --radius-large: 24px;
+            --radius-small: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px 10px;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(140px, auto);
+            gap: 16px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .bento-item {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-small);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 1. Блок Описания Проекта */
+        .hero-box {
+            grid-column: span 2;
+            background-color: var(--primary-light);
+            border-color: #ede9fe;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: var(--radius-large);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #ffffff;
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            align-self: flex-start;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .hero-box h1 {
+            font-size: 22px;
+            color: var(--primary);
+            margin: 0 0 12px 0;
+            line-height: 1.2;
+        }
+
+        .hero-box p {
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--text-dark);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* 2. Блок Картинки */
+        .image-box {
+            grid-column: span 2;
+            grid-row: span 2;
+            background-color: var(--card-bg); 
+            border-radius: var(--radius-large);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .image-box img {
+            width: 80%; 
+            height: 80%;
+            object-fit: contain;
+            border-radius: 16px; 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15); 
+            animation: float 6s ease-in-out infinite; 
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-8px) scale(1.02); }
+            100% { transform: translateY(0px) scale(1); }
+        }
+
+        /* КАРТОЧКИ МОДУЛЕЙ */
+        .mod-box {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mod-7 { grid-column: span 2; }
+
+        .mod-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .mod-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-muted);
+            font-family: monospace;
+            transition: color 0.3s ease;
+        }
+
+        .mod-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.3;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .mod-desc {
+            font-size: 13px;
+            line-height: 1.4;
+            color: var(--text-main);
+            margin-top: 12px;
+            opacity: 0;
+            max-height: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        /* HOVER ЭФФЕКТЫ */
+        .mod-box:hover {
+            background-color: var(--card-hover);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.2);
+            transform: translateY(-2px);
+            z-index: 2;
+        }
+
+        .mod-box:hover .mod-number { color: var(--primary); }
+        .mod-box:hover .mod-header, .mod-box:hover .mod-title { transform: translateY(-5px); }
+        .mod-box:hover .mod-desc { opacity: 1; max-height: 100px; transform: translateY(0); }
+
+        /* АДАПТИВ */
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+            .image-box { grid-row: auto; grid-column: span 2; height: 350px; }
+            .hero-box { grid-column: span 2; }
+            .mod-7 { grid-column: span 1; }
+        }
+
+        @media (max-width: 600px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            .hero-box, .image-box, .mod-7 { grid-column: span 1; }
+            .image-box { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bento-grid">
+        
+        <!-- ГЛАВНЫЙ БЛОК: Описание проекта -->
+        <div class="bento-item hero-box">
+            <span class="hero-badge">О проекте</span>
+            <h1>Омниканальный интернет-магазин</h1>
+            <p>по продаже продуктов питания на основе микросервисной архитектуры с учётом интеграции с существующим IT-ландшафтом заказчика.</p>
+        </div>
+
+        <!-- КАРТИНКА -->
+        <div class="bento-item image-box">
+            <img src="https://github.com/svetlanaurisman-stack/SA-Prjct-foodmart/blob/main/project.jpg?raw=true" alt="FoodMart Project">
+        </div>
+
+        <!-- КАРТОЧКИ МОДУЛЕЙ -->
+        <div class="bento-item mod-box">
+            <div class="mod-header">
+                <span class="mod-number">01</span>
+            </div>
+            <div class="mod-title">Фундаментальные компетенции</div>
+            <div class="mod-desc">Основы теории, технологические стеки и практические методы.</div>
+        </div>
+
+        <div class="bento-item mod-box">
+            <div class="mod-header">
+                <span class="mod-number">02</span>
+            </div>
+            <div class="mod-title">Методологии и технологии ПО</div>
+            <div class="mod-desc">Методологии разработки. Работа со стейкхолдерами.</div>
+        </div>
+
+        <div class="bento-item mod-box">
+            <div class="mod-header">
+                <span class="mod-number">03</span>
+            </div>
+            <div class="mod-title">Работа с требованиями</div>
+            <div class="mod-desc">Анализ, документирование, прототипирование интерфейсов.</div>
+        </div>
+
+        <div class="bento-item mod-box">
+            <div class="mod-header">
+                <span class="mod-number">04</span>
+            </div>
+            <div class="mod-title">Моделирование данных</div>
+            <div class="mod-desc">UML, BPMN и работа с процессами.</div>
+        </div>
+
+        <div class="bento-item mod-box">
+            <div class="mod-header">
+                <span class="mod-number">05</span>
+            </div>
+            <div class="mod-title">Архитектурные практики</div>
+            <div class="mod-desc">Основные шаблоны и базовые навыки архитектора.</div>
+        </div>
+
+        <div class="bento-item mod-box">
+            <div class="mod-header">
+                <span class="mod-number">06</span>
+            </div>
+            <div class="mod-title">Хранение и обработка</div>
+            <div class="mod-desc">Виды БД, производительность, продвинутые аспекты SQL.</div>
+        </div>
+
+        <!-- Этот модуль занимает 2 колонки (mod-7) -->
+        <div class="bento-item mod-box mod-7">
+            <div class="mod-header">
+                <span class="mod-number">07</span>
+            </div>
+            <div class="mod-title">Интеграционная архитектура</div>
+            <div class="mod-desc">От выявления требований до практических решений.</div>
+        </div>
+
+        <div class="bento-item mod-box">
+            <div class="mod-header">
+                <span class="mod-number">08</span>
+            </div>
+            <div class="mod-title">Безопасность информации</div>
+            <div class="mod-desc">От требований до реализации защитных мер.</div>
+        </div>
+
+        <div class="bento-item mod-box">
+            <div class="mod-header">
+                <span class="mod-number">09</span>
+            </div>
+            <div class="mod-title">Внедрение и сопровождение</div>
+            <div class="mod-desc">Роль аналитика. Управление поддержкой, инциденты.</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
